@@ -115,8 +115,16 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 인쇄 함수
     function printSheet() {
+        // 인쇄 최적화를 위한 클래스 추가
+        document.body.classList.add('print-optimized');
+        
         // 인쇄 대화상자 열기
         window.print();
+        
+        // 인쇄 후 클래스 제거 (약간의 지연 추가)
+        setTimeout(() => {
+            document.body.classList.remove('print-optimized');
+        }, 1000);
     }
     
     // 배열을 무작위로 섞는 유틸리티 함수
