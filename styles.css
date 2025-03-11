@@ -128,7 +128,7 @@ h2 {
     max-width: 100%;
     margin: 0 auto;
     flex: 1;
-    min-height: 1100px;
+    min-height: 600px;
 }
 
 .cell {
@@ -252,7 +252,7 @@ h2 {
         flex: 1;
         display: grid;
         grid-template-rows: repeat(11, 1fr);
-        min-height: 48%;
+        min-height: 65%;
     }
     
     .cell {
