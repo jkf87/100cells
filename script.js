@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const answerGrid1 = document.getElementById('answer-grid-1');
     const answerGrid2 = document.getElementById('answer-grid-2');
     
+    // 연산자 상태를 저장
+    let operators = {
+        grid1: '+',
+        grid2: '+'
+    };
+    
     // 초기 그리드 생성
     createGrids();
     
@@ -17,16 +23,21 @@ document.addEventListener('DOMContentLoaded', function() {
     // 두 개의 그리드 생성 함수
     function createGrids() {
         // 문제 그리드 생성
-        const grid1Data = createGrid(gridContainer1);
-        const grid2Data = createGrid(gridContainer2);
+        const grid1Data = createGrid(gridContainer1, 1);
+        const grid2Data = createGrid(gridContainer2, 2);
         
         // 정답 그리드 생성
-        createAnswerGrid(answerGrid1, grid1Data);
-        createAnswerGrid(answerGrid2, grid2Data);
+        createAnswerGrid(answerGrid1, grid1Data, 1);
+        createAnswerGrid(answerGrid2, grid2Data, 2);
+    }
+    
+    // 연산자에 따른 계산 함수
+    function calculate(a, b, operator) {
+        return operator === '+' ? a + b : a * b;
     }
     
     // 그리드 생성 함수
-    function createGrid(container) {
+    function createGrid(container, gridNumber) {
         // 그리드 컨테이너를 초기화합니다
         container.innerHTML = '';
         
@@ -40,7 +51,15 @@ document.addEventListener('DOMContentLoaded', function() {
         // 왼쪽 상단 모서리 셀 생성
         const cornerCell = document.createElement('div');
         cornerCell.className = 'cell corner-cell';
-        cornerCell.textContent = '+';
+        cornerCell.textContent = operators[`grid${gridNumber}`];
+        // 연산자 전환 기능 추가
+        cornerCell.addEventListener('click', () => {
+            operators[`grid${gridNumber}`] = operators[`grid${gridNumber}`] === '+' ? '×' : '+';
+            cornerCell.textContent = operators[`grid${gridNumber}`];
+            // 정답 그리드 업데이트
+            const answerContainer = gridNumber === 1 ? answerGrid1 : answerGrid2;
+            createAnswerGrid({ topNumbers, leftNumbers }, { topNumbers, leftNumbers }, gridNumber);
+        });
         container.appendChild(cornerCell);
         
         // 상단 헤더 행 생성
@@ -64,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const cell = document.createElement('div');
                 cell.className = 'cell';
                 // 정답을 data 속성에 저장 (참고용이며 보이지 않음)
-                cell.dataset.answer = leftNumbers[row] + topNumbers[col];
+                cell.dataset.answer = calculate(leftNumbers[row], topNumbers[col], operators[`grid${gridNumber}`]);
                 container.appendChild(cell);
             }
         }
@@ -74,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // 정답 그리드 생성 함수
-    function createAnswerGrid(container, gridData) {
+    function createAnswerGrid(container, gridData, gridNumber) {
         // 그리드 컨테이너를 초기화합니다
         container.innerHTML = '';
         
@@ -83,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 왼쪽 상단 모서리 셀 생성
         const cornerCell = document.createElement('div');
         cornerCell.className = 'cell corner-cell';
-        cornerCell.textContent = '+';
+        cornerCell.textContent = operators[`grid${gridNumber}`];
         container.appendChild(cornerCell);
         
         // 상단 헤더 행 생성
@@ -107,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const cell = document.createElement('div');
                 cell.className = 'cell answer-cell';
                 // 정답 표시
-                cell.textContent = leftNumbers[row] + topNumbers[col];
+                cell.textContent = calculate(leftNumbers[row], topNumbers[col], operators[`grid${gridNumber}`]);
                 container.appendChild(cell);
             }
         }
