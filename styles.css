@@ -68,7 +68,7 @@ h2 {
     justify-content: space-between;
     margin-bottom: 20px;
     padding: 15px;
-    border: 1px solid #ddd;
+    border: 1px solid #000;
     border-radius: 4px;
     background-color: #f9f9f9;
 }
@@ -87,7 +87,7 @@ h2 {
 
 .info-item input {
     padding: 5px;
-    border: 1px solid #ddd;
+    border: 1px solid #000;
     border-radius: 3px;
     width: 80px;
 }
@@ -107,9 +107,11 @@ h2 {
 .grid-container {
     display: grid;
     grid-template-columns: repeat(11, 1fr);
-    gap: 1px;
-    background-color: #ddd;
-    border: 1px solid #ddd;
+    gap: 2px;
+    background-color: #000;
+    border: 2px solid #000;
+    width: 100%;
+    aspect-ratio: 1 / 1;
 }
 
 .cell {
@@ -117,8 +119,9 @@ h2 {
     align-items: center;
     justify-content: center;
     background-color: white;
-    height: 40px;
+    aspect-ratio: 1 / 1;
     font-size: 18px;
+    border: 1px solid #000;
 }
 
 .header-cell {
@@ -136,14 +139,12 @@ h2 {
     }
     
     .cell {
-        height: 30px;
         font-size: 14px;
     }
 }
 
 @media (max-width: 480px) {
     .cell {
-        height: 25px;
         font-size: 12px;
     }
 }
@@ -176,7 +177,7 @@ h2 {
     }
     
     .student-info {
-        border: none;
+        border: 1px solid #000;
         background: none;
         padding: 0;
         margin-bottom: 10mm;
@@ -188,6 +189,7 @@ h2 {
         border-right: none;
         border-radius: 0;
         background: transparent;
+        border-bottom: 1px solid #000;
     }
     
     .grids-wrapper {
@@ -196,12 +198,14 @@ h2 {
     
     .grid-container {
         page-break-inside: avoid;
+        gap: 0;
+        border: 2px solid #000;
     }
     
     .cell {
-        height: 7mm;
+        aspect-ratio: 1 / 1;
         font-size: 12pt;
-        border: 0.1mm solid #ddd;
+        border: 1px solid #000;
     }
     
     /* 정답 페이지 표시 */
