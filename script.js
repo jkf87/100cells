@@ -11,6 +11,12 @@ document.addEventListener('DOMContentLoaded', function() {
         grid2: '+'
     };
     
+    // 그리드 데이터 저장
+    let gridData = {
+        grid1: null,
+        grid2: null
+    };
+    
     // 초기 그리드 생성
     createGrids();
     
@@ -23,17 +29,22 @@ document.addEventListener('DOMContentLoaded', function() {
     // 두 개의 그리드 생성 함수
     function createGrids() {
         // 문제 그리드 생성
-        const grid1Data = createGrid(gridContainer1, 1);
-        const grid2Data = createGrid(gridContainer2, 2);
+        gridData.grid1 = createGrid(gridContainer1, 1);
+        gridData.grid2 = createGrid(gridContainer2, 2);
         
         // 정답 그리드 생성
-        createAnswerGrid(answerGrid1, grid1Data, 1);
-        createAnswerGrid(answerGrid2, grid2Data, 2);
+        createAnswerGrid(answerGrid1, gridData.grid1, 1);
+        createAnswerGrid(answerGrid2, gridData.grid2, 2);
     }
     
     // 연산자에 따른 계산 함수
     function calculate(a, b, operator) {
-        return operator === '+' ? a + b : a * b;
+        if (operator === '+') {
+            return a + b;
+        } else if (operator === '×') {
+            return a * b;
+        }
+        return a + b; // 기본값
     }
     
     // 그리드 생성 함수
@@ -52,14 +63,23 @@ document.addEventListener('DOMContentLoaded', function() {
         const cornerCell = document.createElement('div');
         cornerCell.className = 'cell corner-cell';
         cornerCell.textContent = operators[`grid${gridNumber}`];
+        
         // 연산자 전환 기능 추가
-        cornerCell.addEventListener('click', () => {
-            operators[`grid${gridNumber}`] = operators[`grid${gridNumber}`] === '+' ? '×' : '+';
-            cornerCell.textContent = operators[`grid${gridNumber}`];
+        cornerCell.addEventListener('click', function() {
+            // 연산자 변경
+            if (operators[`grid${gridNumber}`] === '+') {
+                operators[`grid${gridNumber}`] = '×';
+            } else {
+                operators[`grid${gridNumber}`] = '+';
+            }
+            
+            // 코너 셀 텍스트 업데이트
+            this.textContent = operators[`grid${gridNumber}`];
             
             // 정답 그리드 업데이트
             const answerContainer = gridNumber === 1 ? answerGrid1 : answerGrid2;
-            createAnswerGrid(answerContainer, { topNumbers, leftNumbers }, gridNumber);
+            const data = gridNumber === 1 ? gridData.grid1 : gridData.grid2;
+            createAnswerGrid(answerContainer, data, gridNumber);
             
             // 기존 그리드의 정답 업데이트
             const cells = container.querySelectorAll('.cell:not(.header-cell):not(.corner-cell)');
@@ -72,7 +92,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                 }
             }
+            
+            console.log(`Grid ${gridNumber} operator changed to: ${operators[`grid${gridNumber}`]}`);
         });
+        
         container.appendChild(cornerCell);
         
         // 상단 헤더 행 생성
