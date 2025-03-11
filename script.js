@@ -5,10 +5,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const answerGrid1 = document.getElementById('answer-grid-1');
     const answerGrid2 = document.getElementById('answer-grid-2');
     
-    // 연산자 버튼 요소를 가져옵니다
-    const operatorBtn1 = document.getElementById('operator-btn-1');
-    const operatorBtn2 = document.getElementById('operator-btn-2');
-    
     // 연산자 상태를 저장
     let operators = {
         grid1: '+',
@@ -29,15 +25,6 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // "인쇄하기" 버튼에 이벤트 리스너 추가
     document.getElementById('print-sheet').addEventListener('click', printSheet);
-    
-    // 연산자 버튼에 이벤트 리스너 추가
-    operatorBtn1.addEventListener('click', function() {
-        toggleOperator(1, this);
-    });
-    
-    operatorBtn2.addEventListener('click', function() {
-        toggleOperator(2, this);
-    });
     
     // 연산자 전환 함수
     function toggleOperator(gridNumber, button) {
@@ -63,17 +50,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const answerContainer = gridNumber === 1 ? answerGrid1 : answerGrid2;
         const data = gridNumber === 1 ? gridData.grid1 : gridData.grid2;
         
-        // 코너 셀 업데이트
-        const cornerCell = container.querySelector('.corner-cell');
-        if (cornerCell) {
-            cornerCell.textContent = operators[`grid${gridNumber}`];
+        // 코너 셀 버튼 업데이트
+        const cornerBtn = container.querySelector('.corner-btn');
+        if (cornerBtn) {
+            cornerBtn.textContent = operators[`grid${gridNumber}`];
         }
         
         // 정답 그리드 업데이트
         createAnswerGrid(answerContainer, data, gridNumber);
         
         // 기존 그리드의 정답 업데이트
-        const cells = container.querySelectorAll('.cell:not(.header-cell):not(.corner-cell)');
+        const cells = container.querySelectorAll('.cell:not(.header-cell):not(.corner-btn)');
         let index = 0;
         for (let row = 0; row < 10; row++) {
             for (let col = 0; col < 10; col++) {
@@ -98,10 +85,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // 정답 그리드 생성
         createAnswerGrid(answerGrid1, gridData.grid1, 1);
         createAnswerGrid(answerGrid2, gridData.grid2, 2);
-        
-        // 연산자 버튼 초기화
-        operatorBtn1.textContent = operators.grid1;
-        operatorBtn2.textContent = operators.grid2;
     }
     
     // 연산자에 따른 계산 함수
@@ -126,12 +109,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const topNumbers = shuffleArray([...numbers]);
         const leftNumbers = shuffleArray([...numbers]);
         
-        // 왼쪽 상단 모서리 셀 생성
-        const cornerCell = document.createElement('div');
-        cornerCell.className = 'cell corner-cell';
-        cornerCell.textContent = operators[`grid${gridNumber}`];
+        // 왼쪽 상단 모서리에 연산자 버튼 생성
+        const cornerBtn = document.createElement('button');
+        cornerBtn.className = 'cell corner-btn';
+        cornerBtn.id = `operator-btn-${gridNumber}`;
+        cornerBtn.textContent = operators[`grid${gridNumber}`];
         
-        container.appendChild(cornerCell);
+        // 연산자 버튼에 이벤트 리스너 추가
+        cornerBtn.addEventListener('click', function() {
+            toggleOperator(gridNumber, this);
+        });
+        
+        container.appendChild(cornerBtn);
         
         // 상단 헤더 행 생성
         for (let i = 0; i < 10; i++) {

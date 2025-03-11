@@ -305,6 +305,14 @@ h2 {
     .operator-selector {
         display: none;  /* 인쇄 시 연산자 버튼 숨김 */
     }
+    
+    .corner-btn {
+        background-color: white !important;
+        color: black !important;
+        border: 0.5px solid #000 !important;
+        font-weight: bold;
+        cursor: default;
+    }
 }
 
 .time-record {
@@ -365,5 +373,26 @@ h2 {
 }
 
 .operator-btn:active {
+    background-color: #2a5082;
+}
+
+.corner-btn {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.corner-btn:hover {
+    background-color: #3a70b2;
+}
+
+.corner-btn:active {
     background-color: #2a5082;
 } 
