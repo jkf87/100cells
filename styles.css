@@ -77,6 +77,12 @@ h2 {
     background-color: #f9f9f9;
 }
 
+.middle-info {
+    margin: 0;
+    padding: 10px;
+    background-color: white;
+}
+
 .info-item {
     display: flex;
     align-items: center;
@@ -219,6 +225,12 @@ h2 {
         margin-bottom: 2mm;
     }
     
+    .middle-info {
+        padding: 2mm;
+        margin: 0;
+        border: 1px solid #000;
+    }
+    
     .info-item input {
         border-top: none;
         border-left: none;
@@ -226,6 +238,8 @@ h2 {
         border-radius: 0;
         background: transparent;
         border-bottom: 1px solid #000;
+        width: 60px;
+        font-size: 10pt;
     }
     
     /* 인쇄 시 그리드 래퍼를 세로로 꽉 차게 변경 */
