@@ -5,6 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const answerGrid1 = document.getElementById('answer-grid-1');
     const answerGrid2 = document.getElementById('answer-grid-2');
     
+    // 연산자 버튼 요소를 가져옵니다
+    const operatorBtn1 = document.getElementById('operator-btn-1');
+    const operatorBtn2 = document.getElementById('operator-btn-2');
+    
     // 연산자 상태를 저장
     let operators = {
         grid1: '+',
@@ -26,6 +30,65 @@ document.addEventListener('DOMContentLoaded', function() {
     // "인쇄하기" 버튼에 이벤트 리스너 추가
     document.getElementById('print-sheet').addEventListener('click', printSheet);
     
+    // 연산자 버튼에 이벤트 리스너 추가
+    operatorBtn1.addEventListener('click', function() {
+        toggleOperator(1, this);
+    });
+    
+    operatorBtn2.addEventListener('click', function() {
+        toggleOperator(2, this);
+    });
+    
+    // 연산자 전환 함수
+    function toggleOperator(gridNumber, button) {
+        // 연산자 변경
+        if (operators[`grid${gridNumber}`] === '+') {
+            operators[`grid${gridNumber}`] = '×';
+        } else {
+            operators[`grid${gridNumber}`] = '+';
+        }
+        
+        // 버튼 텍스트 업데이트
+        button.textContent = operators[`grid${gridNumber}`];
+        
+        // 그리드 업데이트
+        updateGrid(gridNumber);
+        
+        console.log(`Grid ${gridNumber} operator changed to: ${operators[`grid${gridNumber}`]}`);
+    }
+    
+    // 그리드 업데이트 함수
+    function updateGrid(gridNumber) {
+        const container = gridNumber === 1 ? gridContainer1 : gridContainer2;
+        const answerContainer = gridNumber === 1 ? answerGrid1 : answerGrid2;
+        const data = gridNumber === 1 ? gridData.grid1 : gridData.grid2;
+        
+        // 코너 셀 업데이트
+        const cornerCell = container.querySelector('.corner-cell');
+        if (cornerCell) {
+            cornerCell.textContent = operators[`grid${gridNumber}`];
+        }
+        
+        // 정답 그리드 업데이트
+        createAnswerGrid(answerContainer, data, gridNumber);
+        
+        // 기존 그리드의 정답 업데이트
+        const cells = container.querySelectorAll('.cell:not(.header-cell):not(.corner-cell)');
+        let index = 0;
+        for (let row = 0; row < 10; row++) {
+            for (let col = 0; col < 10; col++) {
+                if (index < cells.length) {
+                    cells[index].dataset.answer = calculate(
+                        data.leftNumbers[row], 
+                        data.topNumbers[col], 
+                        operators[`grid${gridNumber}`]
+                    );
+                    index++;
+                }
+            }
+        }
+    }
+    
     // 두 개의 그리드 생성 함수
     function createGrids() {
         // 문제 그리드 생성
@@ -35,6 +98,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // 정답 그리드 생성
         createAnswerGrid(answerGrid1, gridData.grid1, 1);
         createAnswerGrid(answerGrid2, gridData.grid2, 2);
+        
+        // 연산자 버튼 초기화
+        operatorBtn1.textContent = operators.grid1;
+        operatorBtn2.textContent = operators.grid2;
     }
     
     // 연산자에 따른 계산 함수
@@ -63,38 +130,6 @@ document.addEventListener('DOMContentLoaded', function() {
         const cornerCell = document.createElement('div');
         cornerCell.className = 'cell corner-cell';
         cornerCell.textContent = operators[`grid${gridNumber}`];
-        
-        // 연산자 전환 기능 추가
-        cornerCell.addEventListener('click', function() {
-            // 연산자 변경
-            if (operators[`grid${gridNumber}`] === '+') {
-                operators[`grid${gridNumber}`] = '×';
-            } else {
-                operators[`grid${gridNumber}`] = '+';
-            }
-            
-            // 코너 셀 텍스트 업데이트
-            this.textContent = operators[`grid${gridNumber}`];
-            
-            // 정답 그리드 업데이트
-            const answerContainer = gridNumber === 1 ? answerGrid1 : answerGrid2;
-            const data = gridNumber === 1 ? gridData.grid1 : gridData.grid2;
-            createAnswerGrid(answerContainer, data, gridNumber);
-            
-            // 기존 그리드의 정답 업데이트
-            const cells = container.querySelectorAll('.cell:not(.header-cell):not(.corner-cell)');
-            let index = 0;
-            for (let row = 0; row < 10; row++) {
-                for (let col = 0; col < 10; col++) {
-                    if (index < cells.length) {
-                        cells[index].dataset.answer = calculate(leftNumbers[row], topNumbers[col], operators[`grid${gridNumber}`]);
-                        index++;
-                    }
-                }
-            }
-            
-            console.log(`Grid ${gridNumber} operator changed to: ${operators[`grid${gridNumber}`]}`);
-        });
         
         container.appendChild(cornerCell);
         

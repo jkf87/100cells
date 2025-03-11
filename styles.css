@@ -301,6 +301,10 @@ h2 {
         background: transparent;
         border-bottom: 1px solid #000;
     }
+    
+    .operator-selector {
+        display: none;  /* 인쇄 시 연산자 버튼 숨김 */
+    }
 }
 
 .time-record {
@@ -330,4 +334,36 @@ h2 {
     border: 1px solid #000;
     border-radius: 3px;
     text-align: center;
+}
+
+/* 연산자 선택 버튼 스타일 */
+.operator-selector {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    justify-content: center;
+}
+
+.operator-selector label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.operator-btn {
+    background-color: #4a90e2;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.operator-btn:hover {
+    background-color: #3a70b2;
+}
+
+.operator-btn:active {
+    background-color: #2a5082;
 } 
