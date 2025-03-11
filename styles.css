@@ -284,4 +284,53 @@ h2 {
         size: A4;
         margin: 5mm;
     }
+    
+    .time-record {
+        border: 1px solid #000;
+        background: none;
+        padding: 10px;
+        max-width: 250px;
+        margin: 10px auto;
+    }
+    
+    .time-input {
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        border-radius: 0;
+        background: transparent;
+        border-bottom: 1px solid #000;
+    }
+}
+
+.time-record {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+}
+
+.time-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.time-item label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.time-input {
+    padding: 5px;
+    border: 1px solid #000;
+    border-radius: 3px;
+    width: 120px;
+    text-align: center;
 } 
