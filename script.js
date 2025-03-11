@@ -56,9 +56,22 @@ document.addEventListener('DOMContentLoaded', function() {
         cornerCell.addEventListener('click', () => {
             operators[`grid${gridNumber}`] = operators[`grid${gridNumber}`] === '+' ? '×' : '+';
             cornerCell.textContent = operators[`grid${gridNumber}`];
+            
             // 정답 그리드 업데이트
             const answerContainer = gridNumber === 1 ? answerGrid1 : answerGrid2;
-            createAnswerGrid({ topNumbers, leftNumbers }, { topNumbers, leftNumbers }, gridNumber);
+            createAnswerGrid(answerContainer, { topNumbers, leftNumbers }, gridNumber);
+            
+            // 기존 그리드의 정답 업데이트
+            const cells = container.querySelectorAll('.cell:not(.header-cell):not(.corner-cell)');
+            let index = 0;
+            for (let row = 0; row < 10; row++) {
+                for (let col = 0; col < 10; col++) {
+                    if (index < cells.length) {
+                        cells[index].dataset.answer = calculate(leftNumbers[row], topNumbers[col], operators[`grid${gridNumber}`]);
+                        index++;
+                    }
+                }
+            }
         });
         container.appendChild(cornerCell);
         
