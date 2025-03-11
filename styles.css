@@ -240,7 +240,7 @@ h2 {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        gap: 25mm;
+        gap: 15mm;
     }
     
     .grid-container {
@@ -252,7 +252,7 @@ h2 {
         flex: 1;
         display: grid;
         grid-template-rows: repeat(11, 1fr);
-        min-height: 65%;
+        min-height: 75%;
     }
     
     .cell {
