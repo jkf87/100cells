@@ -111,6 +111,8 @@ h2 {
     background-color: #000;
     border: 2px solid #000;
     width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
     aspect-ratio: 1 / 1;
 }
 
@@ -160,16 +162,18 @@ h2 {
     .container {
         max-width: 100%;
         box-shadow: none;
-        padding: 10mm;
+        padding: 5mm;
         border-radius: 0;
     }
     
     h1 {
-        margin-bottom: 5mm;
+        margin-bottom: 3mm;
+        font-size: 18pt;
     }
     
     h2 {
-        margin-top: 10mm;
+        margin-top: 5mm;
+        font-size: 16pt;
     }
     
     .button-container {
@@ -180,7 +184,7 @@ h2 {
         border: 1px solid #000;
         background: none;
         padding: 0;
-        margin-bottom: 10mm;
+        margin-bottom: 5mm;
     }
     
     .info-item input {
@@ -193,18 +197,19 @@ h2 {
     }
     
     .grids-wrapper {
-        gap: 15mm;
+        gap: 10mm;
     }
     
     .grid-container {
         page-break-inside: avoid;
         gap: 0;
         border: 2px solid #000;
+        max-width: 100%;
     }
     
     .cell {
         aspect-ratio: 1 / 1;
-        font-size: 12pt;
+        font-size: 10pt;
         border: 1px solid #000;
     }
     
