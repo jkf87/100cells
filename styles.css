@@ -111,9 +111,8 @@ h2 {
     background-color: #000;
     border: 1px solid #000;
     width: 100%;
-    max-width: 450px;
+    max-width: 100%;
     margin: 0 auto;
-    aspect-ratio: 1 / 1;
 }
 
 .cell {
@@ -121,7 +120,7 @@ h2 {
     align-items: center;
     justify-content: center;
     background-color: white;
-    aspect-ratio: 1 / 1;
+    height: 30px;
     font-size: 16px;
     border: 1px solid #000;
 }
@@ -135,16 +134,15 @@ h2 {
     background-color: #e0e0e0;
 }
 
-/* 인쇄 최적화 클래스 */
+/* 인쇄 최적화 클래스 - 세로 배치로 변경 */
 .print-optimized .grids-wrapper {
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
     gap: 10px;
 }
 
 .print-optimized .grid-container {
-    max-width: 48%;
-    width: 48%;
+    max-width: 100%;
+    width: 100%;
 }
 
 @media (max-width: 768px) {
@@ -208,10 +206,9 @@ h2 {
         border-bottom: 1px solid #000;
     }
     
-    /* 인쇄 시 그리드 래퍼를 가로 배치로 변경 */
+    /* 인쇄 시 그리드 래퍼를 세로 배치로 변경 */
     .grids-wrapper {
-        flex-direction: row;
-        justify-content: space-between;
+        flex-direction: column;
         gap: 5mm;
     }
     
@@ -219,12 +216,12 @@ h2 {
         page-break-inside: avoid;
         gap: 0;
         border: 1px solid #000;
-        max-width: 48%; /* 두 그리드가 나란히 배치되도록 너비 조정 */
-        width: 48%;
+        max-width: 100%;
+        width: 100%;
     }
     
     .cell {
-        aspect-ratio: 1 / 1;
+        height: 5mm;
         font-size: 7pt;
         border: 0.5px solid #000;
     }
