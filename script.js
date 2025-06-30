@@ -32,6 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const isSameOperator = operators.grid1 === operators.grid2;
         let titleText;
         
+        console.log('updateTitle called - operators:', operators);
+        
         if (isSameOperator) {
             // 두 연산자가 같으면 해당 연산자로 제목 설정
             if (operators.grid1 === '+') {
@@ -44,9 +46,13 @@ document.addEventListener('DOMContentLoaded', function() {
             titleText = '100칸 혼합 연산 학습지';
         }
         
+        console.log('Updating title to:', titleText);
+        
         // 페이지 제목과 h1 태그 업데이트
         document.title = titleText;
         document.querySelector('h1').textContent = titleText;
+        
+        console.log('Title updated successfully');
     }
     
     // 연산자 전환 함수
