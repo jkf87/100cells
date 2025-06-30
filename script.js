@@ -41,9 +41,35 @@ document.addEventListener('DOMContentLoaded', function() {
         // 그리드 업데이트
         updateGrid(gridNumber);
         
+        // 제목 업데이트
+        updateTitle();
+        
         console.log(`Grid ${gridNumber} operator changed to: ${operators[`grid${gridNumber}`]}`);
     }
     
+    // 제목 업데이트 함수
+    function updateTitle() {
+        // 두 그리드의 연산자가 같은지 확인
+        const isSameOperator = operators.grid1 === operators.grid2;
+        const h1Element = document.querySelector('h1');
+        const titleElement = document.querySelector('title');
+        
+        if (isSameOperator) {
+            // 두 그리드가 같은 연산자인 경우
+            if (operators.grid1 === '+') {
+                h1Element.textContent = '100칸 덧셈 학습지';
+                titleElement.textContent = '100칸 덧셈 학습지';
+            } else {
+                h1Element.textContent = '100칸 곱셈 학습지';
+                titleElement.textContent = '100칸 곱셈 학습지';
+            }
+        } else {
+            // 두 그리드가 다른 연산자인 경우
+            h1Element.textContent = '100칸 혼합 학습지';
+            titleElement.textContent = '100칸 혼합 학습지';
+        }
+    }
+
     // 그리드 업데이트 함수
     function updateGrid(gridNumber) {
         const container = gridNumber === 1 ? gridContainer1 : gridContainer2;
@@ -85,6 +111,9 @@ document.addEventListener('DOMContentLoaded', function() {
         // 정답 그리드 생성
         createAnswerGrid(answerGrid1, gridData.grid1, 1);
         createAnswerGrid(answerGrid2, gridData.grid2, 2);
+        
+        // 제목 업데이트
+        updateTitle();
     }
     
     // 연산자에 따른 계산 함수
