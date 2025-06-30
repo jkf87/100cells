@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 연산자 상태를 저장
     let operators = {
-        grid1: '+',
-        grid2: '+'
+        grid1: '×',
+        grid2: '×'
     };
     
     // 그리드 데이터 저장
