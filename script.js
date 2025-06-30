@@ -26,6 +26,29 @@ document.addEventListener('DOMContentLoaded', function() {
     // "인쇄하기" 버튼에 이벤트 리스너 추가
     document.getElementById('print-sheet').addEventListener('click', printSheet);
     
+    // 제목 업데이트 함수
+    function updateTitle() {
+        // 두 그리드의 연산자가 같은지 확인
+        const isSameOperator = operators.grid1 === operators.grid2;
+        let titleText;
+        
+        if (isSameOperator) {
+            // 두 연산자가 같으면 해당 연산자로 제목 설정
+            if (operators.grid1 === '+') {
+                titleText = '100칸 덧셈 학습지';
+            } else {
+                titleText = '100칸 곱셈 학습지';
+            }
+        } else {
+            // 두 연산자가 다르면 혼합 제목 설정
+            titleText = '100칸 혼합 연산 학습지';
+        }
+        
+        // 페이지 제목과 h1 태그 업데이트
+        document.title = titleText;
+        document.querySelector('h1').textContent = titleText;
+    }
+    
     // 연산자 전환 함수
     function toggleOperator(gridNumber, button) {
         // 연산자 변경
@@ -37,6 +60,9 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 버튼 텍스트 업데이트
         button.textContent = operators[`grid${gridNumber}`];
+        
+        // 제목 업데이트
+        updateTitle();
         
         // 그리드 업데이트
         updateGrid(gridNumber);
